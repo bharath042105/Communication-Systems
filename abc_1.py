@@ -8,8 +8,9 @@ import pyttsx3
 from keras.models import load_model
 from cvzone.HandTrackingModule import HandDetector
 from string import ascii_uppercase
-import enchant
-ddd=enchant.Dict("en-US")
+from spellchecker import SpellChecker
+
+spell = SpellChecker()
 hd = HandDetector(maxHands=1)
 hd2 = HandDetector(maxHands=1)
 import tkinter as tk
@@ -19,8 +20,6 @@ offset=29
 import App
 import webbrowser
 
-
-import subprocess
 
 # Run second script (script2.py) in a new process
 #subprocess.Popen(["python", "main2.py"])  # Use "python3" if on Linux/Mac
@@ -780,30 +779,33 @@ class Application:
         self.ten_prev_char[self.count%10]=ch1
 
 
-        if len(self.str.strip())!=0:
-            st=self.str.rfind(" ")
-            ed=len(self.str)
-            word=self.str[st+1:ed]
-            self.word=word
-            if len(word.strip())!=0:
-                ddd.check(word)
-                lenn = len(ddd.suggest(word))
+        if len(self.str.strip()) != 0:
+            st = self.str.rfind(" ")
+            ed = len(self.str)
+            word = self.str[st + 1: ed]
+            self.word = word
+            if len(word.strip()) != 0:
+                # Check if word is correct
+                if word in spell:
+                    correct = True
+                else:
+                    correct = False
+                suggestions = spell.candidates(word)
+                suggestions = list(suggestions)  # Convert to list to get index positions
+                
+                # Determine word suggestions based on available suggestions
+                lenn = len(suggestions)
                 if lenn >= 4:
-                    self.word4 = ddd.suggest(word)[3]
-
+                    self.word4 = suggestions[3]
+                
                 if lenn >= 3:
-                    self.word3 = ddd.suggest(word)[2]
-
+                    self.word3 = suggestions[2]
+                
                 if lenn >= 2:
-                    self.word2 = ddd.suggest(word)[1]
-
+                    self.word2 = suggestions[1]
+                
                 if lenn >= 1:
-                    self.word1 = ddd.suggest(word)[0]
-            else:
-                self.word1 = " "
-                self.word2 = " "
-                self.word3 = " "
-                self.word4 = " "
+                    self.word1 = suggestions[0]
 
 
     def destructor(self):
