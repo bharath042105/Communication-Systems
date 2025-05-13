@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL to Text and Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        video {
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        .text-display {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .suggestions {
+            margin-top: 20px;
+        }
+        .suggestions button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ASL to Text and Speech Conversion</h1>
+    <div class="container">
+        <div>
+            <img src="{{ url_for('video_feed') }}" width="640" height="480">
+        </div>
+        <div class="text-display">
+            <h2>Generated Text:</h2>
+            <p id="generated-text"></p>
+            <h2>Suggestions:</h2>
+            <div class="suggestions" id="suggestions"></div>
+        </div>
+    </div>
+    <button onclick="speak()">Speak</button>
+
+    <script>
+        // Function to fetch and update text and suggestions
+        function updateText() {
+            fetch('/get_text')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('generated-text').innerText = data.text;
+                    let suggestionsHtml = '';
+                    data.suggestions.forEach((suggestion, index) => {
+                        suggestionsHtml += `<button onclick="selectSuggestion('${suggestion}')">${suggestion}</button>`;
+                    });
+                    document.getElementById('suggestions').innerHTML = suggestionsHtml;
+                });
+        }
+
+        // Function to select a suggestion
+        function selectSuggestion(suggestion) {
+            fetch('/select_suggestion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ suggestion: suggestion }),
+            }).then(() => updateText());
+        }
+
+        // Function to speak the generated text
+        function speak() {
+            fetch('/speak', { method: 'POST' });
+        }
+
+        // Update text every second
+        setInterval(updateText, 1000);
+    </script>
+</body>
+</html>

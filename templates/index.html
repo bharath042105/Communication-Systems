@@ -1,0 +1,232 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignBridge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #ff6f61;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .card {
+            background-color: #162447;
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .card p {
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+        .button {
+            background-color: #00adb5;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #007a7a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Breaking Communication Barriers</h1>
+    <p style="text-align: center;">Choose a translation option below to bridge the gap between spoken language and sign language.</p>
+    <div class="container">
+        <div class="card">
+            <h2>Speech to ASL</h2>
+            <p>Convert spoken words to American Sign Language</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+        <div class="card">
+            <h2>Speech to ISL</h2>
+            <p>Convert spoken words to Indian Sign Language</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+        <div class="card">
+            <h2>Text to ASL</h2>
+            <p>Convert written text to American Sign Language</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+        <div class="card">
+            <h2>Text to ISL</h2>
+            <p>Convert written text to Indian Sign Language</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+        <div class="card">
+            <h2>ASL to ISL</h2>
+            <p>Convert American Sign Language to Indian Sign Language</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+        <div class="card">
+            <h2>ASL to Speech</h2>
+            <p>Convert American Sign Language to spoken words</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignBridge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- FontAwesome Icons -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <header id="home">
+        <h1>SignBridge</h1>
+        <p style="color: rgb(105, 175, 236);">Breaking Communication Barriers</p>
+    </header>
+
+    <p class="description">Choose a translation option below to bridge the gap between spoken language and sign language.</p>
+    <p class="fade-in">
+        SignBridge is an innovative platform designed to bridge the communication gap between the deaf-mute and non-deaf-mute communities. 
+        Using advanced AI-powered translation, we enable seamless conversion between speech, text, and sign languages.
+    </p>
+    <p class="fade-in">
+        Whether you're a teacher, student, professional, or simply someone who wants to communicate effectively, 
+        SignBridge is here to make communication more accessible and inclusive for all.
+    </p>
+    <!-- Main Translation Cards -->
+    <div class="container">
+        <div class="card">
+            <i class="fas fa-microphone icon speech"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-sign-language icon asl"></i>
+            <h2>Speech to ASL</h2>
+            <p>Convert spoken words to American Sign Language</p>
+            <a href="{{ url_for('speech_to_asl_api') }}" class="button">Get Started</a>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-microphone icon speech"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-sign-language icon isl"></i>
+            <h2>Speech to ISL</h2>
+            <p>Convert spoken words to Indian Sign Language</p>
+            <a href="{{ url_for('speech_to_isl_api') }}" class="button">Get Started</a>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-keyboard icon text"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-sign-language icon asl"></i>
+            <h2>Text to ASL</h2>
+            <p>Convert written text to American Sign Language</p>
+            <a href="{{ url_for('text_to_asl_api') }}" class="button">Get Started</a>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-keyboard icon text"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-sign-language icon isl"></i>
+            <h2>Text to ISL</h2>
+            <p>Convert written text to Indian Sign Language</p>
+            <a href="{{ url_for('text_to_isl_api') }}" class="button">Get Started</a>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-sign-language icon asl"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-sign-language icon isl"></i>
+            <h2>ASL to ISL</h2>
+            <p>Convert American Sign Language to Indian Sign Language</p>
+            <a href="{{ url_for('asl_to_isl_api') }}" class="button">Get Started</a>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-sign-language icon asl"></i> 
+            <i class="fas fa-arrow-right icon arrow"></i> 
+            <i class="fas fa-volume-up icon speech"></i>
+            <h2>ASL to Speech</h2>
+            <p>Convert American Sign Language to spoken words</p>
+            <a href="{{ url_for('asl_to_speech_api') }}" class="button">Get Started</a>
+        </div>
+    </div>
+    
+
+    <!-- About Section -->
+    <!-- About Section -->
+<section id="about">
+    <h2>About</h2>
+    <p>This aims to remove communication barriers between deaf-mute and non-deaf-mute individuals.</p>
+
+    <h2>Why Choose SignBridge?</h2>
+    <div class="about-container">
+        <div class="about-card">
+            <i class="fas fa-exchange-alt about-icon"></i>
+            <h3>Real-Time Translation</h3>
+            <p>Instantly converts between speech, text, and sign languages with high accuracy.</p>
+        </div>
+
+        <div class="about-card">
+            <i class="fas fa-language about-icon"></i>
+            <h3>Multiple Sign Languages</h3>
+            <p>Support for both American Sign Language (ASL) and Indian Sign Language (ISL).</p>
+        </div>
+
+        <div class="about-card">
+            <i class="fas fa-user-friends about-icon"></i>
+            <h3>Easy to Use</h3>
+            <p>Intuitive interface designed for users of all technical abilities.</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: xyzmail@example.com</p>
+        <p>Phone: 1234567812</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to ISL | SignBridge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="functionality-section">
+        <h1>Text to ASL</h1>
+        <p>Type your text and see it converted into American Sign Language.</p>
+
+        <div class="interaction-container">
+            <input type="text" id="text-input" placeholder="Enter text here">
+            <button id="convert-text">Convert to ASL</button>
+        </div>
+
+        <p class="info-text">
+            Our system instantly translates written text into ASL gestures, making communication seamless.
+        </p>
+
+        <div id="result" class="image-container"></div>
+        <div id="sign-output"></div>
+
+
+    </section>
+
+    <script>
+        document.getElementById("convert-text").addEventListener("click", function () {
+            const textInput = document.getElementById("text-input").value.trim();
+    
+            if (textInput === "") {
+                alert("Please enter text to convert.");
+                return;
+            }
+    
+            fetch("/text-to-asl", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: textInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === "success") {
+                    displaySignImages(data.images);
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    
+        function displaySignImages(imagePaths) {
+    const outputDiv = document.getElementById("sign-output");
+    outputDiv.innerHTML = ""; // Clear previous images
+
+    imagePaths.forEach(word => {
+        word.forEach(path => {
+            const img = document.createElement("img");
+            img.src = path;
+            img.alt = "Sign Image";
+            img.classList.add("sign-image");
+            img.style.width = "150px";  // Adjust image size
+            img.style.height = "auto";
+            img.style.margin = "10px";
+            outputDiv.appendChild(img);
+        });
+        outputDiv.appendChild(document.createElement("br")); // New line after each word
+    });
+}
+    </script>
+    
+
+</body>
+</html>
