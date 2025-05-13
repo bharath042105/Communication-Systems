@@ -5,7 +5,6 @@ opencv-python
 mediapipe
 pyttsx3
 SpeechRecognition
-PyAudio
 Pillow
 matplotlib
 googletrans==4.0.0-rc1
