@@ -1,9 +1,12 @@
-runtime: python310
+runtime: python39
+
+# 🚀 Increase the instance size to fix memory issue
+instance_class: F2
+
+# ✅ Entry point for your Flask app (file is App.py and Flask app is named 'app')
 entrypoint: gunicorn -b :$PORT App:app
 
+# ✅ Allow all URLs to be handled by the Flask app
 handlers:
-- url: /static
-  static_dir: static
-
 - url: /.*
   script: auto
