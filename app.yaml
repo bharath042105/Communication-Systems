@@ -1,5 +1,5 @@
 runtime: python310
-entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -b :$PORT App:app
 
 handlers:
 - url: /static
