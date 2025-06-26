@@ -1,9 +1,0 @@
-runtime: python310
-entrypoint: gunicorn -b :$PORT main:app
-
-handlers:
-- url: /static
-  static_dir: static
-
-- url: /.*
-  script: auto
