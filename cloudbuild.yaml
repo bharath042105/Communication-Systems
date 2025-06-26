@@ -1,6 +1,8 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'your-image', '.']
-serviceAccount: ' videouploader-c1975@appspot.gserviceaccount.com'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy']
+
+serviceAccount: 'videouploader-c1975@appspot.gserviceaccount.com'
+
 options:
   logging: 'CLOUD_LOGGING_ONLY'
